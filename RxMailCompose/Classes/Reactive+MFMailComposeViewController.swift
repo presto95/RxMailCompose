@@ -11,32 +11,33 @@ import MessageUI
 import RxCocoa
 import RxSwift
 
-extension Reactive where Base: MFMailComposeViewController {
+public extension Reactive where Base: MFMailComposeViewController {
   var mailComposeDelegate: DelegateProxy<MFMailComposeViewController, MFMailComposeViewControllerDelegate> {
     return RxMFMailComposeViewControllerDelegateProxy.proxy(for: base)
   }
 
   var result: Observable<RxMFMailComposeResult> {
     if !MFMailComposeViewController.canSendMail() {
-      return .just(.cannotSend)
+      return .just(.failure(.cannotSend))
     }
-    return mailComposeDelegate.methodInvoked(#selector(MFMailComposeViewControllerDelegate.mailComposeController(_:didFinishWith:error:)))
+    return mailComposeDelegate
+      .methodInvoked(#selector(MFMailComposeViewControllerDelegate.mailComposeController(_:didFinishWith:error:)))
       .map { parameters in
         let result = parameters[1] as! Int
         let error = parameters[2] as? MFMailComposeError
         switch result {
         case 0:
-          return .cancelled
+          return .success(.cancelled)
         case 1:
-          return .saved
+          return .success(.saved)
         case 2:
-          return .sent
+          return .success(.sent)
         case 3:
           switch error!.code {
           case .saveFailed:
-            return .saveFailed
+            return .failure(.saveFailed)
           case .sendFailed:
-            return .sendFailed
+            return .failure(.sendFailed)
           @unknown default:
             fatalError()
           }

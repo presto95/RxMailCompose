@@ -6,19 +6,16 @@
 //  Copyright © 2020 presto. All rights reserved.
 //
 
-enum RxMFMailComposeResult {
-  case cannotSend
+public typealias RxMFMailComposeResult = Result<RxMFMailComposeState, RxMFMailComposeError>
+
+public enum RxMFMailComposeState {
   case cancelled
   case saved
   case sent
+}
+
+public enum RxMFMailComposeError: Error {
+  case cannotSend
   case sendFailed
   case saveFailed
-
-  var isSuccess: Bool {
-    return [.cancelled, .saved, .sent].contains(self)
-  }
-
-  var isFailure: Bool {
-    return [.cannotSend, .sendFailed, .saveFailed].contains(self)
-  }
 }
