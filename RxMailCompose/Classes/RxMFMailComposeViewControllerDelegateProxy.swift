@@ -1,6 +1,6 @@
 //
-//  RxMFMailComposeViewControllereDelegateProxy.swift
-//  RespectUV
+//  RxMFMailComposeViewControllerDelegateProxy.swift
+//  RxMailCompose
 //
 //  Created by Presto on 2020/01/01.
 //  Copyright © 2020 presto. All rights reserved.
