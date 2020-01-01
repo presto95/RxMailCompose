@@ -1,0 +1,6 @@
+framework module RxMailCompose {
+  umbrella header "RxMailCompose-umbrella.h"
+
+  export *
+  module * { export * }
+}

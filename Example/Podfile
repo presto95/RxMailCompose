@@ -3,6 +3,8 @@ use_frameworks!
 target 'RxMailCompose_Example' do
   pod 'RxMailCompose', :path => '../'
 
+  pod 'RxSwift'
+  pod 'RxCocoa'
   target 'RxMailCompose_Tests' do
     inherit! :search_paths
 

@@ -1,0 +1,6 @@
+framework module Pods_RxMailCompose_Example {
+  umbrella header "Pods-RxMailCompose_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
